@@ -82,8 +82,9 @@ zerops:
 #        - php artisan config:cache
 #        - php artisan route:cache
 #        - sudo -E -u zerops -- zsc execOnce ${appVersionId} -- php artisan migrate --isolated --force
-        - sudo -E -u zerops -- zsc execOnce initialize -- php artisan twill:install  --force
-#        - sudo -E -u zerops -- zsc execOnce initialize -- php artisan db:seed --force
+        - sudo -E -u zerops -- zsc execOnce initialize -- php artisan twill:install
+        - sudo -E -u zerops -- zsc execOnce initialize -- php artisan twill:superadmin twill@zerops.io zerops
+      #        - sudo -E -u zerops -- zsc execOnce initialize -- php artisan db:seed --force
 #        - php artisan optimize
       healthCheck:
         httpGet:
