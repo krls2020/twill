@@ -12,6 +12,8 @@ services:
     enableSubdomainAccess: true
     envSecrets:
       APP_KEY: <@generateRandomString(<32>)>
+    envVariables:
+      KRLS_TEST: projectimportenv
 
   - hostname: db
     type: postgresql@16
