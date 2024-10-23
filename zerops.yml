@@ -65,6 +65,11 @@ zerops:
         SESSION_LIFETIME: 120
         SESSION_PATH: /
 
+        BCRYPT_ROUNDS: 12
+
+        MEDIA_LIBRARY_ENDPOINT_TYPE: s3
+        GLIDE_USE_SOURCE_DISK: s3
+
         AWS_ACCESS_KEY_ID: ${storage_accessKeyId}
         AWS_REGION: us-east-1
         AWS_BUCKET: ${storage_bucketName}
@@ -72,10 +77,6 @@ zerops:
         AWS_SECRET_ACCESS_KEY: ${storage_secretAccessKey}
         AWS_URL: ${storage_apiUrl}/${storage_bucketName}
         AWS_USE_PATH_STYLE_ENDPOINT: true
-
-        BCRYPT_ROUNDS: 12
-        FILESYSTEM_DISK: s3
-        FILAMENT_FILESYSTEM_DISK: s3
 
       initCommands:
 #        - php artisan view:cache

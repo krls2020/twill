@@ -2,6 +2,7 @@
 
 return [
 
+
     'dashboard' => [
         'modules' => [
             App\Models\Page::class => [ // Using FQN of the model
