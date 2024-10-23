@@ -3,6 +3,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/s3/glide_cache
 /storage/*.key
 /storage/pail
 /vendor
