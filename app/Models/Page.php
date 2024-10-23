@@ -37,12 +37,6 @@ class Page extends Model
                     'ratio' => 16 / 9,
                 ],
             ],
-            'mobile' => [
-                [
-                    'name' => 'landscape',
-                    'ratio' => 4 / 3,
-                ],
-            ],
         ],
     ];
 
