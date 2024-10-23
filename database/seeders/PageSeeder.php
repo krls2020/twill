@@ -21,6 +21,7 @@ class PageSeeder extends Seeder
     private PageRepository $pageRepository;
     private MenuLinkRepository $menuRepository;
     private array $availableImages;
+    private int $currentImageIndex = 0;
 
     public function __construct(
         PageRepository $pageRepository,
@@ -61,11 +62,19 @@ class PageSeeder extends Seeder
         if (empty($this->availableImages)) {
             throw new \RuntimeException('No image files found in assets directory');
         }
+
+        // Shuffle images to randomize initial assignment
+        shuffle($this->availableImages);
     }
 
-    private function getRandomImage(): string
+    private function getNextImage(): string
     {
-        return $this->availableImages[array_rand($this->availableImages)];
+        // If we've used all images, reset the index
+        if ($this->currentImageIndex >= count($this->availableImages)) {
+            $this->currentImageIndex = 0;
+        }
+
+        return $this->availableImages[$this->currentImageIndex++];
     }
 
     private function createMediaFromImage(string $imagePath, $page): Media
@@ -84,8 +93,8 @@ class PageSeeder extends Seeder
             'filename' => $filename,
             'width' => $width,
             'height' => $height,
-            'alt_text' => 'Page cover image',
-            'caption' => 'Cover image for ' . $page->title
+            'alt_text' => sprintf('%s cover image', $page->title),
+            'caption' => sprintf('Cover image for %s page', $page->title)
         ]);
     }
 
@@ -108,16 +117,16 @@ class PageSeeder extends Seeder
         $page = $this->pageRepository->create($initialData);
 
         $this->addPageContent($page, $pageData['content'], $position);
-        $this->attachRandomCoverImage($page);
+        $this->attachPageCoverImage($page);
         $this->createPageRevision($page, $initialData);
 
         return $page;
     }
 
-    private function attachRandomCoverImage(Page $page): void
+    private function attachPageCoverImage(Page $page): void
     {
-        $randomImage = $this->getRandomImage();
-        $media = $this->createMediaFromImage($randomImage, $page);
+        $image = $this->getNextImage();
+        $media = $this->createMediaFromImage($image, $page);
 
         $page->medias()->attach($media->id, [
             'role' => 'cover',
