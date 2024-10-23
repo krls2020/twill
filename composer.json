@@ -7,9 +7,9 @@
     "require": {
         "php": "^8.2",
         "area17/twill": "^3.0",
+        "fakerphp/faker": "^1.23",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9",
-        "fakerphp/faker": "^1.23"
+        "laravel/tinker": "^2.9"
     },
     "require-dev": {
         "laravel/pail": "^1.1",
