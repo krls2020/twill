@@ -1,66 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Zerops x Twill
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This repository demonstrates how to set up and deploy Twill applications using Zerops for both development and
+production environments.
 
-## About Laravel
+[Twill](https://twill.io) is a CMS toolkit for Laravel that makes it quick and easy to create a custom, powerful admin
+console. This recipe showcases how to run a Twill application on Zerops, including all advanced functionalities, with
+sessions and cache stored in Redis and files stored in Object Storage, making it suitable for production of any size.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![TwillZerops](https://github.com/zeropsio/recipe-shared-assets/blob/main/covers/svg/cover-filament.svg)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<br/>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Deploy on Zerops
 
-## Learning Laravel
+You can either click the deploy button to deploy the development setup directly on Zerops or manually copy
+the [import yaml](https://github.com/zeropsio/recipe-twill/blob/main/zerops-project-import.yml) to the import dialog in
+the Zerops app.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+[![Deploy on Zerops](https://github.com/zeropsio/recipe-shared-assets/blob/main/deploy-button/green/deploy-button.svg)](https://app.zerops.io/recipe/laravel)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<br/>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Recipe Features
 
-## Laravel Sponsors
+- Twill running on a load-balanced **Zerops PHP + Nginx** service
+- Zerops **MySQL** service as the database
+- Zerops KeyDB (**Redis**) service for session and cache
+- Zerops **Object Storage** (S3 compatible) service as the file system
+- Proper setup for Laravel **cache**, **optimization**, and **database migrations**
+- Logs set up to use **syslog** and accessible through Zerops GUI
+- Utilization of Zerops built-in **environment variables** system
+- Utilization of Zerops readiness check for proper **Zero downtime deployment**
+- Utilization of Zerops health check for advanced **app monitoring**
+- [Mailpit](https://github.com/axllent/mailpit) as **SMTP mock server**
+- [Adminer](https://www.adminer.org) for **quick database management** tool
+- [S3browser](https://github.com/zeropsio/s3browser) for quick **S3 storage browsing** and testing
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<br/>
 
-### Premium Partners
+## Development vs. Production
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Development Setup
 
-## Contributing
+This setup includes tools and configurations for a rapid development cycle:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Mailpit as the SMTP mock server
+- Adminer for quick database management
+- Fully commented-out configurations that you can easily switch to production settings
 
-## Code of Conduct
+### Production Setup
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+For a production-ready environment, consider the following modifications:
 
-## Security Vulnerabilities
+- Use a highly available version of the MySQL database
+- Use at least two containers for the Twill service to achieve high reliability and resilience by adding
+  `minContainers: 2` in the recipe YAML.
+- Use a production-ready third-party SMTP server instead of Mailpit.
+- Disable public access to Adminer or remove it altogether from the recipe YAML.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+You can see a production example setup at [
+`zerops-project-import-production.yml`](https://github.com/zeropsio/recipe-twill/blob/main/zerops-project-import-production.yml).
 
-## License
+## Changes Made Over the Default Installation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+To modify your existing Twill app to run efficiently on Zerops, follow these steps:
+
+- Add [zerops.yml](https://github.com/zeropsio/recipe-twill/blob/main/zerops.yml) to your repository. The provided
+  example includes idempotent migrations, caching, and an optimized build process.
+- Add [league/flysystem-aws-s3-v3](https://github.com/zeropsio/recipe-twill/blob/main/composer.json#L23) to your
+  composer.json to support the Object Storage file system.
+- Setup health checks. Health checks are enabled out of the box in Laravel 11.
+- Utilize Zerops [environment variables](https://github.com/zeropsio/recipe-twill/blob/main/zerops.yml#L22-L73)
+  and [secrets](https://github.com/zeropsio/recipe-twill/blob/main/zerops-project-import.yml#L13-L14) to setup S3 for
+  the file system, Redis for cache and sessions, and trusted proxies to work with a reverse proxy load balancer.
+- Frontend and Backend:
+    - The setup includes a fully functional example of a frontend page and a backend seeded with data.
+- Object Storage:
+    - Media are stored in Object Storage with local caching via Glide.
+
+<br/>
+
+Need help setting your project up? Join the [Zerops Discord community](https://discord.com/invite/WDvCZ54).
