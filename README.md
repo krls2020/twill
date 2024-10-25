@@ -7,7 +7,7 @@ production environments.
 console. This recipe showcases how to run a Twill application on Zerops, including all advanced functionalities, with
 sessions and cache stored in Redis and files stored in Object Storage, making it suitable for production of any size.
 
-![TwillZerops](https://github.com/zeropsio/recipe-shared-assets/blob/main/covers/svg/cover-filament.svg)
+![TwillZerops](https://github.com/zeropsio/recipe-shared-assets/blob/main/covers/svg/cover-twill.svg)
 
 <br/>
 
@@ -17,7 +17,7 @@ You can either click the deploy button to deploy the development setup directly 
 the [import yaml](https://github.com/zeropsio/recipe-twill/blob/main/zerops-project-import.yml) to the import dialog in
 the Zerops app.
 
-[![Deploy on Zerops](https://github.com/zeropsio/recipe-shared-assets/blob/main/deploy-button/green/deploy-button.svg)](https://app.zerops.io/recipe/laravel)
+[![Deploy on Zerops](https://github.com/zeropsio/recipe-shared-assets/blob/main/deploy-button/green/deploy-button.svg)](https://app.zerops.io/recipe/twill)
 
 <br/>
 
